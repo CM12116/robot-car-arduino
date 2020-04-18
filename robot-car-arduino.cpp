@@ -7,10 +7,26 @@ MICROPROGRAMACION 2020
 /* **************************************
 **      CLASE ULTRASONIDO
 ************************************** */
+//Constructor parametrizado
+Ultrasonido::Ultrasonido(byte *_pinTrigger, byte *_pinEcho){
+    pinTrigger=_pinTrigger;
+    pinEcho=_pinEcho;
+    pinMode(*pinTrigger, OUTPUT);
+    pinMode(*pinEcho, IMPUT);
+}
+Ultrasonido::Ultrasonido(){}
 
-
-
-
+//Hace la medicion de distancia devuelve cms de distancia hasta 350cm maximo
+int Ultrasonido::medirCM(){
+    digitalWriter(*pinTrigger, LOW);
+    delayMicroseconds(4);
+    digitalWriter(*pinTrigger, HIGH);
+    delayMicroseconds(10);
+    digitalWriter(*pinTrigger, LOW);
+    distancia=pulseIn(*pinEcho,HIGH)/56.5812;
+    distancia=constrain(distancia,0,350);
+    return (int) distancia;
+}
 
 
 
